@@ -1,27 +1,30 @@
 import './App.css';
-import {Formik} from 'formik';
+import {useFormik} from 'formik';
 
 function App() {
+
+  const {handleSubmit, handleChange, values} = useFormik ({
+    initialValues:{ 
+    firstName: 'yavuz',
+    lastName: '',        
+    email: '',
+    gender:'male',
+    hobbies: [],
+    country: 'England',
+  },
+  onSubmit: ( values) =>  { 
+  console.log(values);
+  console.log(values.firstName);
+    },
+});
+
+  
   return (
     <div className="App">
        <h1>Sign Up</h1>
-    <Formik
-      initialValues={{  /* Burayı doldurmana gerek yok. boş kalabilir. Burayı doldurur ve alttada value kısmında mesela  value= value.firstName yazarsan ilk başlangıçta firstname kısmı yavuz olarak görülür. Bunu placeholderla yapılabilir aslında.  */
-        firstName: 'yavuz',
-        lastName: '',        
-        email: '',
-        gender:'male',
-        hobbies: [],
-        country: 'England',
-      }}
-      onSubmit={ (values) =>  { 
-      console.log(values);
-      console.log(values.firstName);
-      
-      }}
-    >
+     
      {
-       ({handleSubmit, handleChange, values})=>(
+       
         <form onSubmit={handleSubmit}>
 
         <label htmlFor="firstName">First Name</label>
@@ -86,9 +89,9 @@ Football
         <br />
        <p> {JSON.stringify(values)} </p>
       </form>
-        )
+        
      }
-    </Formik>
+    
     </div>
   );
 }
